@@ -13,11 +13,15 @@ import (
 )
 
 func main() {
-	if len(os.Args) == 2 && os.Args[1] == "ax-tools" {
+	args := os.Args[1:]
+	if len(args) > 0 && args[0] == "--" {
+		args = args[1:]
+	}
+	if len(args) == 1 && args[0] == "ax-tools" {
 		fmt.Println(`{"name":"upload_to_slack","description":"Upload a local file to the current Slack thread","parameters":{"type":"object","properties":{"path":{"type":"string","description":"Path to the local file"}},"required":["path"]}}`)
 		return
 	}
-	if len(os.Args) != 3 || os.Args[1] != "ax-run" || os.Args[2] != "upload_to_slack" {
+	if len(args) != 2 || args[0] != "ax-run" || args[1] != "upload_to_slack" {
 		fail(2, "usage: slackx ax-tools | slackx ax-run upload_to_slack")
 	}
 	var input struct {
