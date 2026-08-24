@@ -17,12 +17,12 @@ func main() {
 	if len(args) > 0 && args[0] == "--" {
 		args = args[1:]
 	}
-	if len(args) == 1 && args[0] == "ax-tools" {
+	if len(args) == 1 && args[0] == "describe" {
 		fmt.Println(`{"name":"upload_to_slack","description":"Upload a local file to the current Slack thread","parameters":{"type":"object","properties":{"path":{"type":"string","description":"Path to the local file"}},"required":["path"]}}`)
 		return
 	}
-	if len(args) != 2 || args[0] != "ax-run" || args[1] != "upload_to_slack" {
-		fail(2, "usage: slackx ax-tools | slackx ax-run upload_to_slack")
+	if len(args) != 2 || args[0] != "run" || args[1] != "upload_to_slack" {
+		fail(2, "usage: slackx describe | slackx run upload_to_slack")
 	}
 	var input struct {
 		Path string `json:"path"`

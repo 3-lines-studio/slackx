@@ -20,8 +20,8 @@ export AX_TOOLS=slackx
 ## Protocol
 
 ```sh
-slackx ax-tools
+slackx describe
 printf '{"path":"chart.png"}' | \
   AX_SLACK_CHANNEL=C123 AX_SLACK_THREAD=123.456 \
-  slackx ax-run upload_to_slack
+  slackx run upload_to_slack
 ```
