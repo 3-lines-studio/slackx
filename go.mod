@@ -1,6 +1,6 @@
 module github.com/3-lines-studio/slackx
 
-go 1.24.0
+go 1.27.0
 
 require github.com/slack-go/slack v0.17.3
 
