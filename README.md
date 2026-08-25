@@ -1,6 +1,6 @@
 # slackx
 
-Slack file-upload tool for AX processes launched by Slax.
+Slack file-upload tool for AX processes launched by Slaxi.
 
 ## Install
 
@@ -10,7 +10,7 @@ curl -fsSL https://ax.3lines.studio/install.sh | sh -s -- slackx
 
 ## Configure
 
-Slax supplies the message context. Set the bot token and enable the tool:
+Slaxi supplies the message context. Set the bot token and enable the tool:
 
 ```sh
 export SLACK_BOT_TOKEN=xoxb-...
