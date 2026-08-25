@@ -1,5 +1,7 @@
 # slackx
 
+<p align="center"><img src=".github/ax.svg" width="96" height="96" alt="AX ecosystem"></p>
+
 Slack file-upload tool for AX processes launched by Slaxi.
 
 ## Install
