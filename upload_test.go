@@ -81,7 +81,7 @@ func newFakeSlack(t *testing.T) (*httptest.Server, *capturedSlack) {
 		c.getURL = r.PostForm
 		c.mu.Unlock()
 		w.Header().Set("Content-Type", "application/json")
-		fmt.Fprintf(w, `{"ok":true,"upload_url":"http://%s/upload-dest","file_id":"F123"}`, r.Host)
+		_, _ = fmt.Fprintf(w, `{"ok":true,"upload_url":"http://%s/upload-dest","file_id":"F123"}`, r.Host)
 	})
 	mux.HandleFunc("/upload-dest", func(w http.ResponseWriter, r *http.Request) {
 		if err := r.ParseMultipartForm(1 << 20); err != nil {
@@ -95,7 +95,7 @@ func newFakeSlack(t *testing.T) (*httptest.Server, *capturedSlack) {
 			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}
-		defer f.Close()
+		defer func() { _ = f.Close() }()
 		data, err := io.ReadAll(f)
 		if err != nil {
 			c.setErr(fmt.Errorf("read file: %w", err))
@@ -107,7 +107,7 @@ func newFakeSlack(t *testing.T) (*httptest.Server, *capturedSlack) {
 		c.fileData = data
 		c.mu.Unlock()
 		w.Header().Set("Content-Type", "application/json")
-		fmt.Fprint(w, `{"ok":true}`)
+		_, _ = fmt.Fprint(w, `{"ok":true}`)
 	})
 	mux.HandleFunc("/files.completeUploadExternal", func(w http.ResponseWriter, r *http.Request) {
 		if err := r.ParseForm(); err != nil {
@@ -119,7 +119,7 @@ func newFakeSlack(t *testing.T) (*httptest.Server, *capturedSlack) {
 		c.completed = r.PostForm
 		c.mu.Unlock()
 		w.Header().Set("Content-Type", "application/json")
-		fmt.Fprint(w, `{"ok":true,"files":[{"id":"F123"}]}`)
+		_, _ = fmt.Fprint(w, `{"ok":true,"files":[{"id":"F123"}]}`)
 	})
 	srv := httptest.NewServer(mux)
 	t.Cleanup(srv.Close)
